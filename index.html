@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="./style.css" />
+        <script src="https://kit.fontawesome.com/a83280f0d9.js" crossorigin="anonymous"></script>
+        <link rel="shortcut icon" type="image/x-icon" href="1575004840.ico" />
+
+        <title>Ada Market</title>
+    </head>
+    <body>
+        <section class="ventas-section">
+            <div class="ventas-header">
+                <h2 class="ventas-header-titulo">Ventas</h2>
+                <a class="btn-ventas-header">
+                    <i class="fas fa-plus-circle"></i>
+                    <span> Nueva venta</span>
+                </a>
+            </div>
+            <div class="ventas-items">
+                <div class="ventas-items-titulos">
+                    <p class="ventas-items-fecha">Fecha</p>
+                    <p class="ventas-items-vendedora">Vendedora</p>
+                    <p class="ventas-items-sucursal">Sucursal</p>
+                    <p class="ventas-items-componentes">Componentes</p>
+                    <p class="ventas-items-precio">Precio</p>
+                    <p class="ventas-items-trash"></p>
+                </div>
+                <ul id="ventas"></ul>
+            </div>
+        </section>
+        <div class="modal" id="modal-nueva-venta">
+            <div class="modal-backdrop"></div>
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h3 class="modal-header-titulo">Agregar Venta</h3>
+                    <div class="modal-header-close"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="modal-select">
+                        <label for="input-select-vendedora" class="titulo-select-vendedora">Vendedora</label>
+                        <select name="select-vendedora" id="vendedora" class="modal-select-vendedora">
+                            <option disabled selected></option>
+                            <option value="Ada">Ada</option>
+                            <option value="Grace">Grace</option>
+                            <option value="Hedy">Hedy</option>
+                            <option value="Sheryl">Sheryl</option>
+                        </select>
+                        <label for="input-select-componente" class="titulo-select-componente">Componente</label>
+                        <select name="select-componente" id="componente" class="modal-select-componente" multiple size="4">
+                            <option value="Monitor GPRS 3000">Monitor GPRS 3000</option>
+                            <option value="Motherboard ASUS 1500">Motherboard ASUS 1500</option>
+                            <option value="Monitor ASC 543">Monitor ASC 543</option>
+                            <option value="Motherboard ASUS 1200">Motherboard ASUS 1200</option>
+                            <option value="Motherboard MZI">Motherboard MZI</option>
+                            <option value="HDD Toyiva">HDD Toyiva</option>
+                            <option value="HDD Wezter Dishital">HDD Wezter Dishital</option>
+                            <option value="RAM Quinston">RAM Quinston</option>
+                            <option value="RAM Quinston Fury">RAM Quinston Fury</option>
+                        </select>
+                        <label for="input-select-sucursal" class="titulo-select-sucursal">Sucursal</label>
+                        <select name="select-sucursal" id="sucursal" class="modal-select-sucursal">
+                            <option disabled selected></option>
+                            <option value="Centro">Centro</option>
+                            <option value="Caballito">Caballito</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer-buttons">
+                        <button class="modal-footer-cancelar">Cancelar</button>
+                        <button type="submit" class="modal-footer-submit">Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-base-eliminar" id="modal-eliminar">
+            <div class="modal-backdrop-eliminar"></div>
+            <div class="modal-container-eliminar">
+                <div class="modal-header-eliminar">
+                    <h3 class="modal-header-titulo-eliminar">Eliminar Venta</h3>
+                    <div class="modal-header-close-eliminar"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="modal-body-eliminar">
+                    <h4 class="modal-body-titulo">¿Estas segura?</h4>
+                    <p class="modal-body-texto">Esta acción no se puede revertir.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer-buttons">
+                        <button class="modal-footer-cancelar" id="modal-footer-cancelar-eliminar">Cancelar</button>
+                        <button type="submit" class="modal-footer-eliminar">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="ventas-header">
+                <h2 class="ventas-sucursal-titulo">Ventas por Sucursal</h2>
+            </div>
+            <div class="ventas-sucursal-items">
+                <div class="ventas-sucursal-items-titulo">
+                    <p class="ventas-items-sucursal">Sucursal</p>
+                    <p class="ventas-items-total">Total Ventas</p>
+                </div>
+                <ul id="sucursales-ventas"></ul>
+            </div>
+        </section>
+
+        <script src="./index.js"></script>
+    </body>
+</html>

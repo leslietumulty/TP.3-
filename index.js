@@ -32,7 +32,7 @@ const crearVentaHTML = venta => {
      <div class="sucursal">${venta.sucursal}</div>
      <div class="componentes">${venta.componentes}</div>
      <div>${precioMaquina(venta.componentes)}</div>
-     <div id="trash-icon" class="ventas-delete" onclick=showModalEliminar()><i class="fas fa-trash"  "></i></div>
+     <div id="trash-icon" class="ventas-delete" onclick="showModalEliminar(${venta.id})"><i class="fas fa-trash"  "></i></div>
     </li>
  `;
 };
@@ -70,10 +70,9 @@ const vendedoraDelMes = (mes, anio) => {
             maxNombreVendedora = vendedora;
         }
     }
-
     return maxNombreVendedora;
 };
-
+document.querySelector('.vendedora-mes').innerHTML += `Vendedora que mas ingreso genero: <strong> ${vendedoraDelMes()} </strong>`;
 const ventasMes = (mes, anio) => {
     let total = 0;
 
@@ -105,11 +104,12 @@ const ventasSucursal = sucursal => {
             totalSucursal += precioMaquina(venta.componentes);
         }
     });
-    return totalSucursal;
+    return parseInt(totalSucursal);
 };
 console.log(ventasSucursal('Centro'));
 
 const componenteMasVendido = () => {
+    document.querySelector('.producto-estrella-contenedor').innerHTML = '';
     let maxVentas = 0;
     let nombreComponente = '';
     local.precios.forEach(componentes => {
@@ -119,9 +119,13 @@ const componenteMasVendido = () => {
             nombreComponente = componentes.componente;
         }
     });
-    return nombreComponente;
-};
+    let componenteMasVendidoHTML = `
+    <div class="producto-estrella">Producto estrella:  <strong>${nombreComponente} </strong></div>
+    `;
 
+    document.querySelector('.producto-estrella-contenedor').innerHTML += componenteMasVendidoHTML;
+};
+componenteMasVendido();
 const huboVentas = (mes, anio) => {
     let ventasFecha;
     local.ventas.forEach(venta => {
@@ -174,7 +178,7 @@ const agregarNuevaVenta = () => {
     let valueSucursal = document.querySelector('#sucursal').value;
     let valueComponentes = Array.from(document.querySelector('#componente').selectedOptions).map(option => option.value);
     let fechaVenta = new Date();
-    let totalPrecio = precioMaquina(valueComponentes);
+    let totalPrecio = parseInt(precioMaquina(valueComponentes));
 
     const nuevaVenta = {
         id: ++idCard,
@@ -186,13 +190,13 @@ const agregarNuevaVenta = () => {
     local.ventas.push(nuevaVenta);
 
     const nuevaVentaHTML = `
-    <li class="venta" id="card - ${nuevaVenta.id}>
+    <li class="venta" id="card - ${nuevaVenta.id}">
      <div class="fecha">${fechaVenta.getDate()}/${fechaVenta.getMonth() + 1}/${fechaVenta.getFullYear()}</div>
      <div class="vendedora">${valueVendedora}</div>
      <div class="sucursal">${valueSucursal}</div>
      <div class="componentes">${valueComponentes}</div>
      <div class="total">${totalPrecio}</div> 
-     <div id="trash-icon" class="ventas-delete" onclick=showModalEliminar()><i class="fas fa-trash"  "></i></div>
+     <div id="trash-icon" class="ventas-delete" onclick="showModalEliminar(${nuevaVenta.id})"><i class="fas fa-trash"  "></i></div>
  </li>
     `;
     document.getElementById('ventas').innerHTML += nuevaVentaHTML;
@@ -201,12 +205,16 @@ const agregarNuevaVenta = () => {
     document.querySelector('#vendedora').value = '';
     document.querySelector('#sucursal').value = '';
     document.querySelector('#componente').value = '';
+
+    ventasSucursalHTML();
+    componenteMasVendido();
 };
 
 document.querySelector('.modal-footer-submit').onclick = agregarNuevaVenta;
-
-const showModalEliminar = modal => {
+let idEliminar;
+const showModalEliminar = id => {
     document.querySelector('#modal-eliminar').classList.add('active');
+    idEliminar = id;
 };
 const closeModalEliminar = modal => {
     document.querySelector('#modal-eliminar').classList.remove('active');
@@ -216,17 +224,20 @@ document.querySelector('#modal-footer-cancelar-eliminar').onclick = closeModalEl
 document.querySelector('.modal-header-close-eliminar').onclick = closeModalEliminar;
 
 const eliminarVenta = id => {
-    local.ventas.forEach(venta => {
-        const id = venta.id;
-        if (id === id) {
-            local.ventas.splice(venta, 1);
-            document.getElementById(`card - ${id}`).remove();
+    local.ventas.forEach((venta, i) => {
+        if (idEliminar === venta.id) {
+            local.ventas.splice(i, 1);
+            document.getElementById(`card - ${idEliminar}`).remove();
         }
     });
+    closeModalEliminar();
+    ventasSucursalHTML();
+    componenteMasVendido();
 };
 document.querySelector('.modal-footer-eliminar').onclick = eliminarVenta;
 
 const ventasSucursalHTML = sucursal => {
+    document.getElementById('sucursales-ventas').innerHTML = '';
     local.sucursales.forEach(sucursal => {
         const sucursalesHTML = `
         <li class="sucursal-total">

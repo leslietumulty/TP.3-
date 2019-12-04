@@ -38,7 +38,8 @@ body {
     font-size: 21px;
 }
 .ventas-items,
-.ventas-sucursal-items {
+.ventas-sucursal-items,
+.producto-vendedora-estrella {
     background-color: white;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     border-radius: 3px;
@@ -334,4 +335,17 @@ select option {
 .modal-body-texto {
     font-size: 11px;
     color: #8a6d3b;
+}
+.vendedora-mes-contenedor,
+.producto-estrella-contenedor {
+    color: #566787;
+    font-weight: lighter;
+    font-size: 13px;
+    margin-top: 20px;
+}
+.producto-vendedora-estrella {
+    padding: 10px 0 10px 0;
+}
+#producto-vendedora-estrella-dinamico li {
+    list-style: none;
 }

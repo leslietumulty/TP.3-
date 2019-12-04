@@ -38,12 +38,19 @@ body {
     font-size: 21px;
 }
 .ventas-items,
-.ventas-sucursal-items,
+.ventas-por-sucursal,
 .producto-vendedora-estrella {
     background-color: white;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     border-radius: 3px;
+}
+
+.ventas-items {
     margin-bottom: 50px;
+}
+.ventas-por-sucursal,
+.producto-vendedora-estrella {
+    margin-top: 20px;
 }
 .ventas-items-titulos,
 .ventas-sucursal-items-titulo {
@@ -341,11 +348,15 @@ select option {
     color: #566787;
     font-weight: lighter;
     font-size: 13px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 .producto-vendedora-estrella {
-    padding: 10px 0 10px 0;
+    padding: 5px 0 5px 0;
+}
+#producto-vendedora-estrella-dinamico {
+    padding-left: 25px;
 }
 #producto-vendedora-estrella-dinamico li {
     list-style: none;
+    padding: 0;
 }

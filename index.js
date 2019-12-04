@@ -72,7 +72,7 @@ const vendedoraDelMes = (mes, anio) => {
     }
     return maxNombreVendedora;
 };
-document.querySelector('.vendedora-mes').innerHTML += `Vendedora que mas ingreso genero: <strong> ${vendedoraDelMes()} </strong>`;
+
 const ventasMes = (mes, anio) => {
     let total = 0;
 
@@ -173,7 +173,8 @@ document.querySelector('.btn-ventas-header').onclick = showModal;
 document.querySelector('.modal-header-close').onclick = closeModal;
 document.querySelector('.modal-footer-cancelar').onclick = closeModal;
 
-const agregarNuevaVenta = () => {
+const agregarNuevaVenta = event => {
+    event.preventDefault();
     let valueVendedora = document.querySelector('#vendedora').value;
     let valueSucursal = document.querySelector('#sucursal').value;
     let valueComponentes = Array.from(document.querySelector('#componente').selectedOptions).map(option => option.value);
@@ -208,9 +209,10 @@ const agregarNuevaVenta = () => {
 
     ventasSucursalHTML();
     componenteMasVendido();
+    vendedoraEstrella();
 };
 
-document.querySelector('.modal-footer-submit').onclick = agregarNuevaVenta;
+document.querySelector('.modal-select').onsubmit = agregarNuevaVenta;
 let idEliminar;
 const showModalEliminar = id => {
     document.querySelector('#modal-eliminar').classList.add('active');
@@ -233,6 +235,7 @@ const eliminarVenta = id => {
     closeModalEliminar();
     ventasSucursalHTML();
     componenteMasVendido();
+    vendedoraEstrella();
 };
 document.querySelector('.modal-footer-eliminar').onclick = eliminarVenta;
 
@@ -251,6 +254,29 @@ const ventasSucursalHTML = sucursal => {
 };
 
 ventasSucursalHTML();
+
+const vendedoraEstrella = () => {
+    document.querySelector('.vendedora-mes-contenedor').innerHTML = '';
+    let maxImporte = 0;
+    let nombreVendedoraEstrella = '';
+    // recorrer listado de vendedoras
+    local.vendedoras.forEach(vendedora => {
+        const nombreVendedora = vendedora;
+        let totalVendidoPorVendedora = ventasVendedora(nombreVendedora);
+
+        if (totalVendidoPorVendedora > maxImporte) {
+            maxImporte = totalVendidoPorVendedora;
+            nombreVendedoraEstrella = nombreVendedora;
+        }
+    });
+    let vendedoraEstrellaHTML = `
+    <div class="vendedora-estrella">Vendedora que mas ingreso genero: <strong> ${nombreVendedoraEstrella} </strong></div>
+    `;
+
+    document.querySelector('.vendedora-mes-contenedor').innerHTML += vendedoraEstrellaHTML;
+};
+
+vendedoraEstrella();
 const ventasHTML = local.ventas.map(crearVentaHTML);
 const ul = document.getElementById('ventas');
 ul.innerHTML = ventasHTML.join('');
